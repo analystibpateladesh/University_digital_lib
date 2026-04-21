@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Library</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1>World Digital Library</h1>
+  <input type="text" id="searchInput" placeholder="Search books...">
+</header>
+
+<div class="container">
+
+  <!-- FILTER PANEL -->
+  <aside class="filters">
+    <h3>Refine Results</h3>
+
+    <label>Author</label>
+    <select id="authorFilter">
+      <option value="">All</option>
+    </select>
+
+    <label>Year</label>
+    <select id="yearFilter">
+      <option value="">All</option>
+    </select>
+
+    <label>Sort By</label>
+    <select id="sortFilter">
+      <option value="title">Title</option>
+      <option value="year">Year</option>
+    </select>
+  </aside>
+
+  <!-- RESULTS -->
+  <main class="results">
+    <div id="resultsCount"></div>
+    <div id="resultsList"></div>
+  </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

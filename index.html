@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel digital Library</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #242424;
+            background-color: #ffffff;
+        }
+
+        a {
+            color: #0076AD;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
+        .header {
+            background-color: #fff;
+            border-top: 4px solid #F05129;
+            border-bottom: 1px solid #808080;
+            position: relative;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            min-height: 70px;
+        }
+
+        .header-logo {
+            width: 190px;
+            padding: 5px 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .header-search {
+            flex: 1;
+            padding-left: 30px;
+        }
+
+        .header-search form {
+            display: flex;
+            border: 1px solid #000;
+        }
+
+        .header-search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-left: 1px solid #000;
+            font-size: 14px;
+        }
+
+        .header-search-button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-search-button:hover {
+            background-color: #333;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .breadcrumbs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            font-size: 12px;
+        }
+
+        .header-breadcrumbs a {
+            color: #0076AD;
+        }
+
+        .header-breadcrumbs a::after {
+            content: " » ";
+            color: #242424;
+            margin: 0 0.5rem;
+        }
+
+        .header-breadcrumbs .active {
+            color: #242424;
+        }
+
+        /* Page Title */
+        .header-wrapper {
+            background-color: #ffffff;
+            border-bottom: 1px solid #fff3f3;
+            padding: 1rem 0 0.5rem;
+        }
+
+        .header-wrapper h1 {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #242424;
+        }
+
+        .header-wrapper h1 small {
+            display: block;
+            font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+            font-size: 0.875rem;
+            font-weight: normal;
+            color: #666;
+            margin-bottom: 0.0025rem;
+        }
+
+        /* Tabs */
+        .tabs-to-hamburger-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid #808080;
+        }
+
+        .tabs-to-hamburger-lists {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            list-style: none;
+        }
+
+        .tabs-to-hamburger-list {
+            margin: 0;
+        }
+
+        .tabs-to-hamburger-link {
+            display: block;
+            padding: 5px 15px;
+            color: #242424;
+            font-size: 1.125rem;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .tabs-to-hamburger-link:hover {
+            text-decoration: none;
+            background-color: #F6F6F6;
+        }
+
+        .tabs-to-hamburger-link-selected {
+            font-weight: bold;
+        }
+
+        .tabs-to-hamburger-link-selected::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #242424;
+        }
+
+        /* Featured Items */
+        .featured-items {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+        }
+
+        .toggle-featured {
+            background-color: #F6F6F6;
+            padding: 0.75rem 1rem 0.75rem 32px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #242424;
+            position: relative;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .featured-items-content {
+            background-color: #F6F6F6;
+            padding: 0.2rem 1rem;
+        }
+
+        .featured-items-content-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+        }
+
+        .featured-items-content-list-item {
+            text-align: center;
+        }
+
+        .featured-items-content-list-item img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-item-title {
+            font-size: 0.875rem;
+            color: #242424;
+            display: block;
+            line-height: 1.3;
+        }
+
+        /* Main Content Container */
+        .managed-content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .managed-content-row {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Main Content */
+        .managed-content-content {
+            flex: 1;
+        }
+
+        .managed-content-content article {
+            background-color: #fff;
+        }
+
+        .managed-content-content h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #242424;
+            margin-bottom: 1.5rem;
+        }
+
+        .managed-content-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #242424;
+        }
+
+        .managed-content-content a {
+            color: #0076AD;
+        }
+
+        .managed-content-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar Navigation */
+        .managed-content-navigation {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .page-menu {
+            background-color: #fff;
+        }
+
+        .page-menu ul {
+            list-style: none;
+        }
+
+        .page-menu li {
+            border-top: 1px solid #E5E5E5;
+        }
+
+        .page-menu li:first-child {
+            border-top: none;
+        }
+
+        .page-menu a {
+            display: block;
+            padding: 1rem;
+            color: #242424;
+            font-weight: normal;
+        }
+
+        .page-menu li.selected a {
+            font-weight: bold;
+            background-color: #F6F6F6;
+        }
+
+        .page-menu a:hover {
+            background-color: #F6F6F6;
+            text-decoration: none;
+        }
+
+        /* Related Resources */
+        .article-aside {
+            border-top: 1px solid #808080;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .article-aside h2 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #242424;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .article-aside ul {
+            list-style: none;
+        }
+
+        .article-aside li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-aside a {
+            color: #0076AD;
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #F6F6F6;
+            border-top: 1px solid #808080;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-social-links-wrapper {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #808080;
+        }
+
+        .footer-social-title {
+            font-size: 18px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .footer-social-links img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+            font-size: 12px;
+        }
+
+        .footer-links a {
+            color: #242424;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-logo {
+                width: 161px;
+                padding: 0;
+            }
+
+            .managed-content-row {
+                flex-direction: column;
+            }
+
+            .managed-content-navigation {
+                width: 100%;
+            }
+
+            .featured-items-content-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .header-search {
+                width: 100%;
+                padding-left: 0;
+                margin-top: 1rem;
+            }
+
+            .featured-items-content-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tabs-to-hamburger-lists {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .featured-items-content-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="abc.jpg" alt="Pixel digital Library">
+                </a>
+            </div>
+            <div class="header-search">
+                <form role="search" method="get" action="/search/">
+                    <input type="search" 
+                           class="header-search-input" 
+                           placeholder="Search"
+                           name="q">
+                    <button class="header-search-button" type="submit"></button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs-wrapper">
+        <div class="breadcrumbs-container">
+            <nav class="header-breadcrumbs">
+                <a href="index.html">Pixel Digital Library</a>
+                <span class="active">About this Collection</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="header-wrapper">
+        <h1>
+            <small>Collection</small>
+            <span>Pixel digital Library (A Student-led Academic Initiative)</span>
+        </h1>
+    </div>
+
+    <!-- Tabs -->
+    <nav class="tabs-to-hamburger-wrapper">
+        <ul class="tabs-to-hamburger-lists">
+            <li class="tabs-to-hamburger-list">
+                <a href="logo.png" 
+                   class="tabs-to-hamburger-link tabs-to-hamburger-link-selected">
+                    About this Collection
+                </a>
+            </li>
+            <li class="tabs-to-hamburger-list">
+                <a href="collection.html" 
+                   class="tabs-to-hamburger-link">
+                    Collection Items
+                </a>
+            </li>
+            <li class="tabs-to-hamburger-list">
+                <a href="developer.html" 
+                   class="tabs-to-hamburger-link">
+                    About the Developer
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Featured Items -->
+    <div class="featured-items">
+        <h2 class="toggle-featured">Featured Content</h2>
+        <div class="featured-items-content">
+            <div class="featured-items-content-list">
+                <div class="featured-items-content-list-item">
+                    <img src="a.jpg" alt="Featured Item 1">
+                    <a href="#" class="featured-item-title">Morning Glory Flowers: National Diet Library</a>
+                </div>
+                <div class="featured-items-content-list-item">
+                    <img src="b.jpg" alt="Featured Item 2">
+                    <a href="#" class="featured-item-title">The Origin of Tenjin: National Diet Library</a>
+                </div>
+                <div class="featured-items-content-list-item">
+                    <img src="c.jpg" alt="Featured Item 3">
+                    <a href="#" class="featured-item-title">Annals of Creation: National Library of China</a>
+                </div>
+                <div class="featured-items-content-list-item">
+                    <img src="d.jpg" alt="Featured Item 4">
+                    <a href="#" class="featured-item-title">One Hundred Aspects of the Moon</a>
+                </div>
+                <div class="featured-items-content-list-item">
+                    <img src="e.jpg" alt="Featured Item 5">
+                    <a href="#" class="featured-item-title">Itinerary Book: East India</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="managed-content-container">
+        <div class="managed-content-row">
+            <div class="managed-content-content">
+                <article>
+  <h1>About This Collection</h1>
+
+  <p>
+    This collection brings together academic and educational resources curated for the 
+    <a href="https://uohyd.ac.in" target="_blank">University of Hyderabad (UOH)</a> Digital Library. 
+    It includes study materials contributed by students, academic peers, and members of the university community, 
+    along with selected content from departmental repositories and institutional resources.
+  </p>
+
+  <p>
+    The collection encompasses a wide range of materials, including books, lecture notes, 
+    <a href="material.html?type=previous-year-papers">previous year examination papers</a>, 
+    assignments, presentations, and supplementary learning resources. All item records are accompanied by descriptive 
+    information provided by contributors and, where applicable, reviewed and enhanced to ensure academic relevance, 
+    clarity, and contextual value.
+  </p>
+
+  <p>
+    The Pixel digital Library has been developed as a 
+    <a href="index.html">student-led academic initiative</a> with the objective of improving access to essential study 
+    resources and supporting collaborative learning across disciplines. By organizing materials according to 
+    <a href="material.html">department</a>, 
+    <a href="material.html">program</a>, 
+    <a href="/browse?filter=semester">semester</a>, 
+    <a href="/browse?filter=subject">subject</a>, and 
+    <a href="/browse?filter=type">resource type</a>, the platform enables efficient discovery, scholarly preparation, 
+    and academic use.
+  </p>
+
+  <p>
+    Content within the collection is submitted in accordance with established 
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSezHOWeQI3dOH5tdiV-ZBcJyyV2ihQcCEa6HaEtC06kGVpA_Q/viewform?usp=sharing&ouid=110087299166035675268">contribution guidelines</a>, with due consideration given to academic integrity, accuracy, 
+    and educational value. Where applicable, 
+    <a href="/verified">verified materials</a> are clearly identified to assist users in recognizing trusted and 
+    authoritative resources.
+  </p>
+
+  <p>
+    All materials are made available strictly for educational and non-commercial purposes. Intellectual property rights 
+    remain with the original authors and respective institutions. Any content requiring correction, attribution, or 
+    removal may be reported through the 
+    <a href="connect.html">content review process</a> and will be addressed promptly in accordance with ethical, legal, 
+    and academic standards.
+  </p>
+</article>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div class="managed-content-navigation">
+                <div class="page-menu">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="index.html">About this Collection</a>
+                            </li>
+                            <li class="selected">
+                                <a href="developer.html">About the Developer</a>
+                            </li>
+                            <li>
+                                <a href="/collections/world-digital-library/about-this-collection/rights-and-access/">Rights and Access</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <aside class="article-aside">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="collection.html">Browse Collection</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSftXewuvx1Na0FcATL_v6cPw3QC7xAaOsQKxQbbry76HrEkZw/viewform?usp=dialog">Contribute Resources</a></li>
+                        <li><a href="connect.html">Contact Us</a></li>
+                        <li><a href="connect.html#faqs">FAQs</a></li>
+                        <li><a href="https://uohyd.ac.in" target="_blank">University Website</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-social-links-wrapper">
+                <span class="footer-social-title"><a href="#">Follow Us</a></span>
+                <ul class="footer-social-links">
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/share/email.svg" alt="Email"></a></li>
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/social-media/facebook.svg" alt="Facebook"></a></li>
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/social-media/x.svg" alt="X"></a></li>
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/social-media/instagram.svg" alt="Instagram"></a></li>
+                </ul>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#">Accessibility</a></li>
+                <li><a href="#">Legal</a></li>
+                <li><a href="#">Developers</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">HCU admin</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

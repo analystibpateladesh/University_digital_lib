@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel digital Library Course Materials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .notice-bar {
+            background: #fffbf0;
+            padding: 8px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid #e5e5e5;
+            text-align: center;
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 2px solid #ccc;
+            padding: 15px 20px;
+        }
+
+        .header-top {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .header-logo {
+            width: 190px;
+            padding: 5px 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .header-search {
+            flex: 1;
+            padding-left: 30px;
+        }
+
+        .header-search form {
+            display: flex;
+            border: 1px solid #000;
+        }
+
+        .header-search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-left: 1px solid #000;
+            font-size: 14px;
+        }
+
+        .header-search-button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-search-button:hover {
+            background-color: #333;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #002f6c;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .nav-menu a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contribute Button - Updated Style */
+        .contribute-btn {
+            background: transparent;
+            color: #002f6c;
+            padding: 8px 20px;
+            border: 2px solid #002f6c;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .contribute-btn:hover {
+            background: #002f6c;
+            color: #fff;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 40px 10px 15px;
+            border: 2px solid #002f6c;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #002f6c;
+        }
+
+        .search-select {
+            padding: 10px;
+            border: 2px solid #002f6c;
+            font-size: 13px;
+            min-width: 200px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 4px auto;
+            padding: 0 15px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            color: #002f6c;
+            text-decoration: none;
+        }
+
+/* Layout */
+.main-container {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+}
+
+.filter-section {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.filter-title {
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.filter-content {
+  padding: 5px 0;
+}
+
+.filter-dropdown {
+  width: 100%;
+  padding: 8px;
+  font-size: 13px;
+}
+
+/* Content */
+.content {
+  flex: 1;
+}
+
+.results-info {
+  font-size: 13px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+/* Items */
+.items-container {
+  margin-top: 10px;
+}
+
+.item-card {
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.item-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.item-title a {
+  color: #002f6c;
+  text-decoration: none;
+}
+
+.item-title a:hover { text-decoration: underline; }
+
+.item-meta {
+  font-size: 13px;
+  color: #555;
+  margin: 3px 0;
+}
+
+.item-desc {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background: #002f6c;
+  color: #fff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .main-container { flex-direction: column; }
+  .sidebar { width: 100%; }
+  .nav-menu { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="notice-bar">
+  Community-shared learning resources & useful websites
+</div>
+
+    <div class="header">
+        <div class="header-top">
+            <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="abc.jpg" alt="Pixel digital Library">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="collection.html">All Collection</a></li>
+                <li><a href="material.html">Course Material</a></li>
+                <li><a href="sources.html">Online Sources</a></li>
+                <li><a href="announcement.html">Announcements</a></li>
+                <li><a href="connect.html">Connect</a></li>
+            </ul>
+        </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSezHOWeQI3dOH5tdiV-ZBcJyyV2ihQcCEa6HaEtC06kGVpA_Q/viewform?usp=sharing&ouid=110087299166035675268" class="contribute-btn" target="_blank">+Contribute Materials</a>
+                <a href="connect.html#faqs" style="color: #002f6c; font-size: 13px; text-decoration: underline;">FAQs</a>
+            </div>
+        </div>
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search">
+                <button class="search-btn" onclick="applyFilters()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Pixel digital Library</a> &gt; 
+        <a href="collection.html">Collection Items</a> &gt; 
+        Online Sources
+    </div>
+
+<div class="main-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h3 style="margin-bottom:10px;">Refine results</h3>
+
+    <div class="filter-section">
+      <div class="filter-title">Category</div>
+      <div class="filter-content">
+        <select id="categoryFilter" class="filter-dropdown" onchange="applyFilters()">
+          <option value="">All Categories</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-title">Platform</div>
+      <div class="filter-content">
+        <select id="platformFilter" class="filter-dropdown" onchange="applyFilters()">
+          <option value="">All Platforms</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+    <div class="results-info">
+      Results: <span id="totalResults">0</span>
+    </div>
+
+    <div class="items-container" id="items"></div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseClient = supabase.createClient(
+  "https://krxszsvcrakvkbyxfhfe.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtyeHN6c3ZjcmFrdmtieXhmaGZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk1MDg5MzMsImV4cCI6MjA4NTA4NDkzM30.FkQIrHo7N6iHRIo-SWT1AHTaoAoKYtAp-xPgWMhmOlE"
+);
+
+let allItems = [];
+let currentPage = 1;
+const perPage = 12;
+
+// Load all items initially
+async function loadInitial() {
+  const { data, error } = await supabaseClient
+    .from("resources")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(500);
+
+  if (error) {
+    console.error("Supabase error:", error);
+    return;
+  }
+
+  allItems = data;
+  initFilters();
+  render();
+}
+
+// Populate the Category and Platform dropdowns
+function initFilters() {
+  const cats = [...new Set(allItems.map(i => i.category))];
+  const plats = [...new Set(allItems.map(i => i.platform))];
+
+  const categoryFilterEl = document.getElementById("categoryFilter");
+  const platformFilterEl = document.getElementById("platformFilter");
+
+  cats.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    categoryFilterEl.appendChild(opt);
+  });
+
+  plats.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p;
+    opt.textContent = p;
+    platformFilterEl.appendChild(opt);
+  });
+}
+
+// Called whenever filters change
+function applyFilters() {
+  currentPage = 1;
+  render();
+}
+
+// Render items with filters and pagination
+function render() {
+  const categoryFilterEl = document.getElementById("categoryFilter");
+  const platformFilterEl = document.getElementById("platformFilter");
+
+  const cat = categoryFilterEl.value;
+  const plat = platformFilterEl.value;
+
+  const filtered = allItems.filter(i =>
+    (!cat || i.category === cat) &&
+    (!plat || i.platform === plat)
+  );
+
+  document.getElementById("totalResults").textContent = filtered.length;
+
+  // Pagination
+  const start = (currentPage - 1) * perPage;
+  const pageItems = filtered.slice(start, start + perPage);
+
+  document.getElementById("items").innerHTML = pageItems.map(i => `
+    <div class="item-card">
+      <div class="item-title">
+        <a href="${i.url}" target="_blank">${i.title}</a>
+      </div>
+      <div class="item-meta">
+        ${i.category} | ${i.platform || 'N/A'} | Shared by ${i.contributor || 'Unknown'}
+      </div>
+      <div class="item-desc">${i.description || ''}</div>
+    </div>
+  `).join("");
+
+  renderPagination(filtered.length);
+}
+
+// Render pagination buttons
+function renderPagination(total) {
+  const pages = Math.ceil(total / perPage);
+  const paginationEl = document.getElementById("pagination");
+  paginationEl.innerHTML = "";
+
+  for (let i = 1; i <= pages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.className = (i === currentPage ? "active" : "");
+    btn.onclick = () => {
+      currentPage = i;
+      render();
+    };
+    paginationEl.appendChild(btn);
+  }
+}
+
+// Event listeners for filter dropdowns
+document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+document.getElementById("platformFilter").addEventListener("change", applyFilters);
+
+// Load data on page load
+loadInitial();
+</script>
+
+</body>
+</html>
+

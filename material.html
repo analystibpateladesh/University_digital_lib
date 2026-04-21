@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel digital Library Course Materials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .notice-bar {
+            background: #fffbf0;
+            padding: 8px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid #e5e5e5;
+            text-align: center;
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 2px solid #ccc;
+            padding: 15px 20px;
+        }
+
+        .header-top {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .header-logo {
+            width: 190px;
+            padding: 5px 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .header-search {
+            flex: 1;
+            padding-left: 30px;
+        }
+
+        .header-search form {
+            display: flex;
+            border: 1px solid #000;
+        }
+
+        .header-search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-left: 1px solid #000;
+            font-size: 14px;
+        }
+
+        .header-search-button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-search-button:hover {
+            background-color: #333;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #002f6c;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .nav-menu a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contribute Button - Updated Style */
+        .contribute-btn {
+            background: transparent;
+            color: #002f6c;
+            padding: 8px 20px;
+            border: 2px solid #002f6c;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .contribute-btn:hover {
+            background: #002f6c;
+            color: #fff;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 40px 10px 15px;
+            border: 2px solid #002f6c;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #002f6c;
+        }
+
+        .search-select {
+            padding: 10px;
+            border: 2px solid #002f6c;
+            font-size: 13px;
+            min-width: 200px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 4px auto;
+            padding: 0 15px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            color: #002f6c;
+            text-decoration: none;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            padding: 0 20px 40px;
+        }
+
+        /* Sidebar Filters - Updated for Dropdowns */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .filter-section {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .filter-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 2px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 0;
+        }
+
+        .filter-title:hover {
+            background: #f5f5f5;
+        }
+
+        .filter-title::after {
+            content: '+';
+            font-size: 20px;
+            font-weight: bold;
+            color: #002f6c;
+        }
+
+        .filter-title.expanded::after {
+            content: '−';
+        }
+
+        .filter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .filter-content.expanded {
+            max-height: 1000px;
+        }
+
+        .filter-dropdown {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .filter-dropdown:focus {
+            outline: none;
+        }
+
+        .filter-item {
+            padding: 0.2px 0;
+            font-size: 15px;
+        }
+
+        .filter-item label {
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 2px;
+            color: #002f6c;
+            text-decoration: none;
+        }
+
+        .filter-item label:hover {
+            text-decoration: underline;
+        }
+
+        .filter-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+        }
+
+        .filter-count {
+            color: #666;
+            margin-left: auto;
+            padding-left: 10px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+            flex-wrap: wrap;
+            gap: 1px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 1px;
+        }
+
+        .results-info {
+            font-size: 13px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .active-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .filter-tag {
+            background: #e8f0fe;
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-tag button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .sort-select {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            background: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Items List View */
+        .items-container.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .items-container.grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            border-top: 1px solid #ddd;
+            padding: 2px 0;
+            background: #fff;
+        }
+
+        .item-card:first-child {
+            border-top: none;
+        }
+
+        .list-view .item-card {
+            display: flex;
+            gap: 20px;
+        }
+
+        .item-thumbnail {
+            width: 60px;
+            height: 100px;
+            flex-shrink: 0;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+
+        .grid-view .item-thumbnail {
+            width: 100%;
+            height: 250px;
+            margin-bottom: 10px;
+        }
+
+        .item-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-format {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 0.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .item-title {
+            font-size: 18px;
+            font-weight: Bold;
+            margin-bottom: 0.5px;
+            line-height: 0.8;
+        }
+
+        .item-title a {
+            color: #002f6c;
+            text-decoration: none;
+        }
+
+        .item-title a:hover {
+            text-decoration: underline;
+        }
+
+        .item-author {
+            font-size: 14px;
+            font-style: italic;
+            color: #666;
+            margin-top: 0.2px;
+            margin-bottom: 0.2px;
+        }
+
+        .item-meta {
+            font-size: 13px;
+            color: #000;
+            margin: 0.5px 0;
+        }
+
+        .item-meta strong {
+            font-weight: bold;
+        }
+
+        .item-description {
+            font-size: 15px;
+            color: #333;
+            margin-top: 1px;
+            line-height: 0.8;
+        }
+
+        .item-resource {
+            font-size: 53px;
+            margin-top: 1px;
+        }
+
+        .item-resource strong {
+            font-weight: bold;
+        }
+
+        .item-resource a {
+            color: #002f6c;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .item-resource a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin: 40px 0;
+            font-size: 13px;
+        }
+
+        .pagination button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #f5f5f5;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination .active {
+            background: #002f6c;
+            color: #fff;
+            border-color: #002f6c;
+            font-weight: bold;
+        }
+
+        .results-per-page {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-per-page select {
+            padding: 6px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #002f6c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .items-container.grid-view {
+                grid-template-columns: 1fr;
+            }
+
+            .list-view .item-card {
+                flex-direction: column;
+            }
+
+            .item-thumbnail {
+                width: 100%;
+            }
+
+            .search-btn {
+                right: 10px;
+            }
+
+            .search-select {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notice Bar -->
+    <div class="notice-bar">
+        Welcome to University Course Materials Portal
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-top">
+            <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="abc.jpg" alt="Pixel digital Library">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="collection.html">All Collection</a></li>
+                <li><a href="material.html">Course Material</a></li>
+                <li><a href="sources.html">Online Sources</a></li>
+                <li><a href="announcement.html">Announcements</a></li>
+                <li><a href="connect.html">Connect</a></li>
+            </ul>
+        </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSezHOWeQI3dOH5tdiV-ZBcJyyV2ihQcCEa6HaEtC06kGVpA_Q/viewform?usp=sharing&ouid=110087299166035675268" class="contribute-btn" target="_blank">+Contribute Materials</a>
+                <a href="connect.html#faqs" style="color: #002f6c; font-size: 13px; text-decoration: underline;">FAQs</a>
+            </div>
+        </div>
+        <!-- Search Container -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search">
+                <button class="search-btn" onclick="applyFilters()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Pixel digital Library</a> &gt; 
+        <a href="collection.html">Collection Items</a> &gt; 
+        Course Materials
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <h2 style="font-size: 18px; margin-bottom: 20px; color: #000; font-weight: bold;">Refine your results</h2>
+
+            <!-- Available Online Filter -->
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleFilterSection(this)">Available Online</div>
+                <div class="filter-content">
+                    <div class="filter-item">
+                        <label>
+                            <input type="checkbox" checked disabled>
+                            <span>Available Online <span class="filter-count" id="totalCount">0</span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Degree Filter (Dropdown) -->
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleFilterSection(this)">Degree Program</div>
+                <div class="filter-content">
+                    <select class="filter-dropdown" id="degreeFilter" onchange="handleDropdownFilter('degree', this.value)">
+                        <option value="">All Degrees</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Semester Filter (Dropdown) -->
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleFilterSection(this)">Semester</div>
+                <div class="filter-content">
+                    <select class="filter-dropdown" id="semesterFilter" onchange="handleDropdownFilter('semester', this.value)">
+                        <option value="">All Semesters</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Material Type Filter (Dropdown) -->
+            <div class="filter-section">
+                <div class="filter-title" onclick="toggleFilterSection(this)">Material Type</div>
+                <div class="filter-content">
+                    <select class="filter-dropdown" id="typeFilter" onchange="handleDropdownFilter('type', this.value)">
+                        <option value="">All Types</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content">
+            <!-- Content Header -->
+            <div class="content-header">
+                <div class="results-info">
+                    Results: <span id="resultsStart">1</span>-<span id="resultsEnd">25</span> of <span id="resultsTotal">0</span>.
+                </div>
+
+                <div class="view-controls">
+                    <span style="font-size: 12px; margin-right: 10px;">View</span>
+                    <button class="view-btn active" onclick="changeView('list', this)">List</button>
+                    <button class="view-btn" onclick="changeView('grid', this)">Grid</button>
+                    
+                    <span style="font-size: 12px; margin-left: 15px; margin-right: 5px;">Sort By</span>
+                    <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+                        <option value="title">Title</option>
+                        <option value="title_desc">Title (descending)</option>
+                        <option value="semester">Semester</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Active Filters -->
+            <div class="active-filters" id="activeFilters"></div>
+
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading course materials....</p>
+            </div>
+
+            <!-- Items Container -->
+            <div class="items-container list-view" id="itemsContainer"></div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykkownB4wD5cNV7hUwalkQTlKlJkspBJYJEglL6_x7TeXI_q43jsk4CjUzsT5fxc9x/exec';
+
+        let allItems = [];
+        let filteredItems = [];
+        let currentPage = 1;
+        let itemsPerPage = 25;
+        let activeFilters = {
+            degree: '',
+            semester: '',
+            type: ''
+        };
+        let currentView = 'list';
+
+        // Fetch data from Google Apps Script
+        async function fetchData() {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL);
+                const data = await response.json();
+                
+                if (data && Array.isArray(data)) {
+                    allItems = data;
+                    filteredItems = [...allItems];
+                    
+                    document.getElementById('loading').style.display = 'none';
+                    initializeFilters();
+                    renderItems();
+                    renderPagination();
+                } else {
+                    throw new Error('Invalid data format received');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('loading').innerHTML = `
+                    <p style="color: red;">Error loading data from Google Apps Script</p>
+                    <p style="font-size: 13px; margin-top: 10px;">Error: ${error.message}</p>
+                    <button onclick="loadSampleData()" style="margin-top: 20px; padding: 10px 20px; cursor: pointer; font-family: Arial;">Load Sample Data Instead</button>
+                `;
+            }
+        }
+
+        // Load sample data for testing
+        function loadSampleData() {
+            allItems = [
+                {
+                    title: 'Introduction to Data Structures',
+                    degree: 'B.Tech Computer Science',
+                    semester: 'Semester 3',
+                    type: 'Textbook',
+                    contributor: 'Prof. Ramesh Kumar',
+                    description: 'Comprehensive guide to fundamental data structures including arrays, linked lists, stacks, queues, trees, and graphs.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 270 pages'
+                },
+                {
+                    title: 'DSA Course Syllabus 2024',
+                    degree: 'B.Tech Computer Science',
+                    semester: 'Semester 3',
+                    type: 'Course Outline',
+                    contributor: 'Department of CSE',
+                    description: 'Complete course syllabus with topics, weightage, and evaluation criteria.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 12 pages'
+                },
+                {
+                    title: 'Mid-Term Examination 2023',
+                    degree: 'B.Tech Computer Science',
+                    semester: 'Semester 3',
+                    type: 'PYQ Papers',
+                    contributor: 'Examination Cell',
+                    description: 'Previous year question paper with solutions for mid-term examination.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 8 pages'
+                },
+                {
+                    title: 'Database Management Systems',
+                    degree: 'B.Tech Computer Science',
+                    semester: 'Semester 4',
+                    type: 'Textbook',
+                    contributor: 'Dr. Sanjay Verma',
+                    description: 'Complete textbook covering SQL, normalization, transactions, and database design.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 450 pages'
+                },
+                {
+                    title: 'DBMS Lab Manual',
+                    degree: 'B.Tech Computer Science',
+                    semester: 'Semester 4',
+                    type: 'Course Material',
+                    contributor: 'Lab Instructor',
+                    description: 'Practical exercises and experiments for database systems laboratory.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 85 pages'
+                },
+                {
+                    title: 'Microeconomics Lecture Notes',
+                    degree: 'B.Com',
+                    semester: 'Semester 1',
+                    type: 'Course Material',
+                    contributor: 'Prof. Anita Sharma',
+                    description: 'Detailed lecture notes covering demand, supply, elasticity, and market structures.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 120 pages'
+                },
+                {
+                    title: 'Financial Accounting Fundamentals',
+                    degree: 'B.Com',
+                    semester: 'Semester 1',
+                    type: 'Textbook',
+                    contributor: 'Dr. Rajesh Patel',
+                    description: 'Introduction to accounting principles, journal entries, and financial statements.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 380 pages'
+                },
+                {
+                    title: 'Accounting PYQ 2023',
+                    degree: 'B.Com',
+                    semester: 'Semester 1',
+                    type: 'PYQ Papers',
+                    contributor: 'Examination Cell',
+                    description: 'Previous year question paper with detailed solutions.',
+                    thumbnail: '',
+                    link: '#',
+                    resource: 'PDF - 15 pages'
+                }
+            ];
+            filteredItems = [...allItems];
+            document.getElementById('loading').style.display = 'none';
+            initializeFilters();
+            renderItems();
+            renderPagination();
+        }
+
+        // Initialize filter options
+        function initializeFilters() {
+            const degrees = getUniqueValues('degree');
+            const semesters = getUniqueValues('semester');
+            const types = getUniqueValues('type');
+            
+            renderDropdownOptions('degreeFilter', degrees);
+            renderDropdownOptions('semesterFilter', semesters);
+            renderDropdownOptions('typeFilter', types);
+            
+            document.getElementById('totalCount').textContent = allItems.length;
+        }
+
+        // Get unique values for a field
+        function getUniqueValues(field) {
+            const values = allItems.map(item => {
+                let val = item[field];
+                if (field === 'semester' && val) {
+                    if (!isNaN(val) && !val.toString().toLowerCase().includes('semester')) {
+                        val = `Semester ${val}`;
+                    }
+                    val = val.toString().replace(/semester/i, 'Semester');
+                }
+                return val;
+            }).filter(Boolean);
+            const counts = {};
+            values.forEach(v => counts[v] = (counts[v] || 0) + 1);
+            return Object.entries(counts).sort((a, b) => {
+                if (field === 'semester') {
+                    const numA = parseInt(a[0].match(/\d+/)?.[0] || 0);
+                    const numB = parseInt(b[0].match(/\d+/)?.[0] || 0);
+                    return numA - numB;
+                }
+                return b[1] - a[1];
+            });
+        }
+
+        // Render dropdown options
+        function renderDropdownOptions(selectId, options) {
+            const select = document.getElementById(selectId);
+            const currentValue = select.value;
+            
+            // Keep the "All" option and add the rest
+            const optionsHTML = options.map(([value, count]) => 
+                `<option value="${value}">${value} (${count})</option>`
+            ).join('');
+            
+            select.innerHTML = select.innerHTML.split('</option>')[0] + '</option>' + optionsHTML;
+            
+            // Restore the previously selected value if it still exists
+            if (currentValue && Array.from(select.options).some(opt => opt.value === currentValue)) {
+                select.value = currentValue;
+            }
+        }
+
+        // Handle dropdown filter change
+        function handleDropdownFilter(type, value) {
+            activeFilters[type] = value;
+            applyFilters();
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+            
+            filteredItems = allItems.filter(item => {
+                // Search filter
+                if (searchQuery) {
+                    const searchable = `${item.title} ${item.description || ''} ${item.contributor || ''} ${item.type || ''}`.toLowerCase();
+                    if (!searchable.includes(searchQuery)) return false;
+                }
+                
+                // Degree filter
+                if (activeFilters.degree && item.degree !== activeFilters.degree) {
+                    return false;
+                }
+                
+                // Semester filter
+                if (activeFilters.semester) {
+                    let itemSemester = item.semester;
+                    if (itemSemester) {
+                        if (!isNaN(itemSemester) && !itemSemester.toString().toLowerCase().includes('semester')) {
+                            itemSemester = `Semester ${itemSemester}`;
+                        }
+                        itemSemester = itemSemester.toString().replace(/semester/i, 'Semester');
+                    }
+                    if (itemSemester !== activeFilters.semester) {
+                        return false;
+                    }
+                }
+                
+                // Type filter
+                if (activeFilters.type && item.type !== activeFilters.type) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            // Sort
+            filteredItems.sort((a, b) => {
+                switch(sortBy) {
+                    case 'title':
+                        return (a.title || '').localeCompare(b.title || '');
+                    case 'title_desc':
+                        return (b.title || '').localeCompare(a.title || '');
+                    case 'semester':
+                        const numA = parseInt((a.semester || '').toString().match(/\d+/)?.[0] || 0);
+                        const numB = parseInt((b.semester || '').toString().match(/\d+/)?.[0] || 0);
+                        return numA - numB;
+                    default:
+                        return 0;
+                }
+            });
+            
+            currentPage = 1;
+            renderActiveFilters();
+            renderItems();
+            renderPagination();
+        }
+
+        // Render active filters
+        function renderActiveFilters() {
+            const container = document.getElementById('activeFilters');
+            const tags = [];
+            
+            Object.entries(activeFilters).forEach(([type, value]) => {
+                if (value) {
+                    const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
+                    tags.push(`
+                        <div class="filter-tag">
+                            ${typeLabel}: ${value}
+                            <button onclick="removeFilter('${type}')">✕</button>
+                        </div>
+                    `);
+                }
+            });
+            
+            container.innerHTML = tags.join('');
+        }
+
+        // Remove filter
+        function removeFilter(type) {
+            activeFilters[type] = '';
+            
+            // Reset the dropdown to "All"
+            const filterId = type + 'Filter';
+            document.getElementById(filterId).value = '';
+            
+            applyFilters();
+        }
+
+        // Render items
+        function renderItems() {
+            const container = document.getElementById('itemsContainer');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = filteredItems.slice(start, end);
+            
+            if (pageItems.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 40px; font-size: 14px;">No items found matching your criteria.</p>';
+                return;
+            }
+            
+            container.innerHTML = pageItems.map(item => `
+                <div class="item-card">
+                    <div class="item-thumbnail">
+                        ${item.thumbnail ? `<img src="${item.thumbnail}" alt="${item.title}">` : ''}
+                    </div>
+                    <div class="item-info">
+                        <div class="item-format">${item.type || 'Document'}</div>
+                        <div class="item-title">
+                            <a href="${item.link || '#'}" target="_blank">${item.title || 'Untitled'}${item.courseCode ? ' (' + item.courseCode + ')' : ''}</a>
+                        </div>
+                        ${item.author ? `<div class="item-author">${item.author}</div>` : ''}
+                        ${item.degree || item.semester ? `<div class="item-meta">${item.degree ? '<strong>Degree:</strong> ' + item.degree : ''}${item.degree && item.semester ? ' | ' : ''}${item.semester ? '<strong>Semester:</strong> ' + (item.semester.toString().includes('Semester') ? item.semester : 'Semester ' + item.semester) : ''}</div>` : ''}
+                        ${item.resource ? `<div class="item-resource"><strong>Resource:</strong> <a href="${item.link || '#'}" target="_blank">${item.resource}</a></div>` : ''}
+                        ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update results info
+            document.getElementById('resultsStart').textContent = start + 1;
+            document.getElementById('resultsEnd').textContent = Math.min(end, filteredItems.length);
+            document.getElementById('resultsTotal').textContent = filteredItems.length;
+        }
+
+        // Render pagination
+        function renderPagination() {
+            const container = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            let html = `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>`;
+            
+            // Page numbers
+            const maxPagesToShow = 10;
+            let startPage = Math.max(1, currentPage - 5);
+            let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+            
+            if (endPage - startPage < maxPagesToShow - 1) {
+                startPage = Math.max(1, endPage - maxPagesToShow + 1);
+            }
+            
+            if (startPage > 1) {
+                html += `<button onclick="changePage(1)">1</button>`;
+                if (startPage > 2) {
+                    html += `<span>...</span>`;
+                }
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
+            }
+            
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    html += `<span>...</span>`;
+                }
+                html += `<button onclick="changePage(${totalPages})">${totalPages}</button>`;
+            }
+            
+            html += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+            
+            html += `
+                <div class="results-per-page">
+                    Results per page:
+                    <select onchange="changeItemsPerPage(this.value)">
+                        <option value="25" ${itemsPerPage === 25 ? 'selected' : ''}>25</option>
+                        <option value="50" ${itemsPerPage === 50 ? 'selected' : ''}>50</option>
+                        <option value="100" ${itemsPerPage === 100 ? 'selected' : ''}>100</option>
+                        <option value="150" ${itemsPerPage === 150 ? 'selected' : ''}>150</option>
+                    </select>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            renderItems();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Change items per page
+        function changeItemsPerPage(value) {
+            itemsPerPage = parseInt(value);
+            currentPage = 1;
+            renderItems();
+            renderPagination();
+        }
+
+        // Change view
+        function changeView(view, btn) {
+            currentView = view;
+            const container = document.getElementById('itemsContainer');
+            const buttons = document.querySelectorAll('.view-btn');
+            
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            container.className = 'items-container';
+            if (view === 'list') {
+                container.classList.add('list-view');
+            } else if (view === 'grid') {
+                container.classList.add('grid-view');
+            }
+        }
+
+        // Toggle filter section collapse/expand
+        function toggleFilterSection(element) {
+            const content = element.nextElementSibling;
+            element.classList.toggle('expanded');
+            content.classList.toggle('expanded');
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            fetchData();
+            
+            // Add enter key support for search
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    applyFilters();
+                }
+            });
+        };
+    </script>
+</body>
+</html>

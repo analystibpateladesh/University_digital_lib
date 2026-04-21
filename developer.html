@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Developer - Pixel digital Library</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #242424;
+            background-color: #ffffff;
+        }
+
+        a {
+            color: #0076AD;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
+        .header {
+            background-color: #fff;
+            border-top: 4px solid #F05129;
+            border-bottom: 1px solid #808080;
+            position: relative;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            min-height: 70px;
+        }
+
+        .header-logo {
+            width: 190px;
+            padding: 5px 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .header-search {
+            flex: 1;
+            padding-left: 30px;
+        }
+
+        .header-search form {
+            display: flex;
+            border: 1px solid #000;
+        }
+
+        .header-search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-left: 1px solid #000;
+            font-size: 14px;
+        }
+
+        .header-search-button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 7px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-search-button:hover {
+            background-color: #333;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .breadcrumbs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            font-size: 12px;
+        }
+
+        .header-breadcrumbs a {
+            color: #0076AD;
+        }
+
+        .header-breadcrumbs a::after {
+            content: " » ";
+            color: #242424;
+            margin: 0 0.5rem;
+        }
+
+        .header-breadcrumbs .active {
+            color: #242424;
+        }
+
+        /* Page Title */
+        .header-wrapper {
+            background-color: #ffffff;
+            border-bottom: 1px solid #fff3f3;
+            padding: 1rem 0 0.5rem;
+        }
+
+        .header-wrapper h1 {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #242424;
+        }
+
+        .header-wrapper h1 small {
+            display: block;
+            font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+            font-size: 0.875rem;
+            font-weight: normal;
+            color: #666;
+            margin-bottom: 0.0025rem;
+        }
+
+        /* Tabs */
+        .tabs-to-hamburger-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid #808080;
+        }
+
+        .tabs-to-hamburger-lists {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            list-style: none;
+        }
+
+        .tabs-to-hamburger-list {
+            margin: 0;
+        }
+
+        .tabs-to-hamburger-link {
+            display: block;
+            padding: 5px 15px;
+            color: #242424;
+            font-size: 1.125rem;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .tabs-to-hamburger-link:hover {
+            text-decoration: none;
+            background-color: #F6F6F6;
+        }
+
+        .tabs-to-hamburger-link-selected {
+            font-weight: bold;
+        }
+
+        .tabs-to-hamburger-link-selected::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #242424;
+        }
+
+        /* Main Content Container */
+        .managed-content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .managed-content-row {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Main Content */
+        .managed-content-content {
+            flex: 1;
+        }
+
+        .managed-content-content article {
+            background-color: #fff;
+        }
+
+        .managed-content-content h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #242424;
+            margin-bottom: 1.5rem;
+        }
+
+        .managed-content-content h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #242424;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .managed-content-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #242424;
+        }
+
+        .managed-content-content a {
+            color: #0076AD;
+        }
+
+        .managed-content-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Developer Profile Section */
+        .developer-profile {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #F6F6F6;
+            border-radius: 8px;
+        }
+
+        .developer-photo-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .developer-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 3px solid #F05129;
+            transition: transform 0.3s ease;
+        }
+
+        .developer-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .developer-links {
+            position: absolute;
+            right: -180px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-width: 160px;
+        }
+
+        .developer-photo-container:hover .developer-links {
+            opacity: 1;
+            visibility: visible;
+            right: -190px;
+        }
+
+        .developer-links h3 {
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: #242424;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid #F05129;
+            padding-bottom: 0.5rem;
+        }
+
+        .developer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .developer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .developer-links a {
+            color: #0076AD;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .developer-links a:hover {
+            color: #F05129;
+            text-decoration: none;
+        }
+
+        .developer-links a::before {
+            content: "→";
+            color: #F05129;
+        }
+
+        .developer-info {
+            flex: 1;
+        }
+
+        .developer-info h2 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #F05129;
+        }
+
+        .developer-role {
+            font-size: 1.125rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* Sidebar Navigation */
+        .managed-content-navigation {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .page-menu {
+            background-color: #fff;
+        }
+
+        .page-menu ul {
+            list-style: none;
+        }
+
+        .page-menu li {
+            border-top: 1px solid #E5E5E5;
+        }
+
+        .page-menu li:first-child {
+            border-top: none;
+        }
+
+        .page-menu a {
+            display: block;
+            padding: 1rem;
+            color: #242424;
+            font-weight: normal;
+        }
+
+        .page-menu li.selected a {
+            font-weight: bold;
+            background-color: #F6F6F6;
+        }
+
+        .page-menu a:hover {
+            background-color: #F6F6F6;
+            text-decoration: none;
+        }
+
+        /* Related Resources */
+        .article-aside {
+            border-top: 1px solid #808080;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .article-aside h2 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #242424;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .article-aside ul {
+            list-style: none;
+        }
+
+        .article-aside li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-aside a {
+            color: #0076AD;
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #F6F6F6;
+            border-top: 1px solid #808080;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-social-links-wrapper {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #808080;
+        }
+
+        .footer-social-title {
+            font-size: 18px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .footer-social-links img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+            font-size: 12px;
+        }
+
+        .footer-links a {
+            color: #242424;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-logo {
+                width: 161px;
+                padding: 0;
+            }
+
+            .managed-content-row {
+                flex-direction: column;
+            }
+
+            .managed-content-navigation {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .header-search {
+                width: 100%;
+                padding-left: 0;
+                margin-top: 1rem;
+            }
+
+            .tabs-to-hamburger-lists {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="abc.jpg" alt="Pixel digital Library">
+                </a>
+            </div>
+            <div class="header-search">
+                <form role="search" method="get" action="/search/">
+                    <input type="search" 
+                           class="header-search-input" 
+                           placeholder="Search"
+                           name="q">
+                    <button class="header-search-button" type="submit">🔍</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs-wrapper">
+        <div class="breadcrumbs-container">
+            <nav class="header-breadcrumbs">
+                <a href="index.html">Pixel Digital Library</a>
+                <span class="active">About the Developer</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="header-wrapper">
+        <h1>
+            <small>Collection</small>
+            <span>Pixel digital Library (A Student-led Academic Initiative)</span>
+        </h1>
+    </div>
+
+    <!-- Tabs -->
+    <nav class="tabs-to-hamburger-wrapper">
+        <ul class="tabs-to-hamburger-lists">
+            <li class="tabs-to-hamburger-list">
+                <a href="index.html" 
+                   class="tabs-to-hamburger-link">
+                    About this Collection
+                </a>
+            </li>
+            <li class="tabs-to-hamburger-list">
+                <a href="collection.html" 
+                   class="tabs-to-hamburger-link">
+                    Collection Items
+                </a>
+            </li>
+            <li class="tabs-to-hamburger-list">
+                <a href="developer.html" 
+                   class="tabs-to-hamburger-link tabs-to-hamburger-link-selected">
+                    About the Developer
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="managed-content-container">
+        <div class="managed-content-row">
+            <div class="managed-content-content">
+                <article>
+                    <h1>About the Developer</h1>
+
+                    <div class="developer-profile">
+                        <div class="developer-photo-container">
+                            <img src="dev.jpg" alt="Developer Photo" class="developer-photo">
+                            <div class="developer-links">
+                                <h3>Connect</h3>
+                                <ul>
+                                    <li><a href="mailto:your.email@uohyd.ac.in">Email</a></li>
+                                    <li><a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></li>
+                                    <li><a href="https://github.com/yourprofile" target="_blank">GitHub</a></li>
+                                    <li><a href="https://twitter.com/yourhandle" target="_blank">Twitter</a></li>
+                                    <li><a href="tel:+919140579643">Phone</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="developer-info">
+                            <h2>Patel, Adesh</h2>
+                            <p class="developer-role">Developer of Pixel Digital Library</p>
+                            <p>
+                                A passionate student developer dedicated to creating accessible digital solutions for the 
+                                academic community. With expertise in web development and a commitment to open education, 
+                                this project represents an effort to bridge the gap between students and quality learning resources.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        The Pixel digital Library platform was developed as part of a student-led initiative to enhance 
+                        access to academic resources and foster collaborative learning within the University of Hyderabad community.
+                    </p>
+
+                    <h2>Vision and Mission</h2>
+                    <p>
+                        This project was conceived with the vision of creating a centralized, accessible repository of 
+                        educational materials that would benefit students across all departments and programs. The mission 
+                        is to democratize access to quality study resources, promote knowledge sharing, and support 
+                        academic excellence through technology.
+                    </p>
+
+                    <h2>Development Approach</h2>
+                    <p>
+                        The platform has been designed with a focus on usability, accessibility, and scalability. Special 
+                        attention has been given to organizing content in a way that makes it easy for students to find 
+                        relevant materials based on their department, program, semester, and subject requirements.
+                    </p>
+
+                    <p>
+                        The development process involved careful research into digital library best practices, user 
+                        experience design principles, and academic resource management systems. The result is a clean, 
+                        intuitive interface that prioritizes functionality while maintaining a professional aesthetic.
+                    </p>
+
+                    <h2>Technology Stack</h2>
+                    <p>
+                        The platform utilizes modern web technologies to ensure reliable performance, responsive design, 
+                        and cross-device compatibility. The technical infrastructure supports efficient content delivery, 
+                        search functionality, and scalable resource management.
+                    </p>
+
+                    <h2>Community Contribution</h2>
+                    <p>
+                        This initiative relies on the active participation of students, faculty members, and academic 
+                        peers who contribute materials and help maintain the quality of the collection. Contributors are 
+                        encouraged to submit resources through the established 
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSezHOWeQI3dOH5tdiV-ZBcJyyV2ihQcCEa6HaEtC06kGVpA_Q/viewform?usp=sharing&ouid=110087299166035675268">contribution guidelines</a>.
+                    </p>
+
+                    <h2>Future Development</h2>
+                    <p>
+                        The platform continues to evolve based on user feedback and emerging needs. Future enhancements 
+                        may include advanced search capabilities, personalized content recommendations, collaborative 
+                        study tools, and expanded integration with university systems.
+                    </p>
+
+                    <h2>Contact and Support</h2>
+                    <p>
+                        For questions, suggestions, or collaboration opportunities, please reach out through the 
+                        <a href="connect.html">contact page</a>. Your feedback is invaluable in improving this platform 
+                        and ensuring it continues to serve the academic community effectively.
+                    </p>
+                </article>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="managed-content-navigation">
+                <div class="page-menu">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="index.html">About this Collection</a>
+                            </li>
+                            <li class="selected">
+                                <a href="developer.html">About the Developer</a>
+                            </li>
+                            <li>
+                                <a href="/collections/world-digital-library/about-this-collection/rights-and-access/">Rights and Access</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <aside class="article-aside">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="collection.html">Browse Collection</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSftXewuvx1Na0FcATL_v6cPw3QC7xAaOsQKxQbbry76HrEkZw/viewform?usp=dialog">Contribute Resources</a></li>
+                        <li><a href="connect.html">Contact Us</a></li>
+                        <li><a href="https://uohyd.ac.in" target="_blank">University Website</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-social-links-wrapper">
+                <span class="footer-social-title"><a href="#">Follow Us</a></span>
+                <ul class="footer-social-links">
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/share/email.svg" alt="Email"></a></li>
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/social-media/facebook.svg" alt="Facebook"></a></li>
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/social-media/x.svg" alt="X"></a></li>
+                    <li><a href="#"><img src="https://www.loc.gov/static/images/social-media/instagram.svg" alt="Instagram"></a></li>
+                </ul>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#">Accessibility</a></li>
+                <li><a href="#">Legal</a></li>
+                <li><a href="#">Developers</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">HCU admin</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

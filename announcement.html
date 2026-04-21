@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel digital LibraryAnnouncements</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .notice-bar {
+            background: #fffbf0;
+            padding: 8px 20px;
+            font-size: 13px;
+            border-bottom: 1px solid #e5e5e5;
+            text-align: center;
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 2px solid #ccc;
+            padding: 1px 2px;
+        }
+
+        .header-top {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            width: 190px;
+            padding: 5px 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #002f6c;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .nav-menu a:hover {
+            text-decoration: underline;
+        }
+
+        .contribute-btn {
+            background: transparent;
+            color: #002f6c;
+            padding: 8px 20px;
+            border: 2px solid #002f6c;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .contribute-btn:hover {
+            background: #002f6c;
+            color: #fff;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            color: #002f6c;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            background: #fff;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            border-bottom: 2px solid #002f6c;
+            margin-bottom: 4px;
+            display: flex;
+            gap: 0;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: #f5f5f5;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #fff;
+            color: #000;
+            border-bottom: 3px solid #002f6c;
+        }
+
+        .tab-btn:hover {
+            color: #002f6c;
+        }
+
+        /* Page Title Section */
+        .page-header {
+            padding: 1px 0 0.5px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 2px;
+        }
+
+        .page-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.2;
+            max-width: 900px;
+        }
+
+        /* Section Styles */
+        .announcement-section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            margin-bottom: 4px;
+            padding-bottom: 2px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #002f6c;
+            margin-bottom: 1px;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* List View Styles */
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Announcement List Item */
+        .announcement-item {
+            background: #fff;
+            border-bottom: 0px solid #e5e5e5;
+            padding: 2px 2.7px;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
+        .announcement-item:hover {
+            background: #f9f9f9;
+            border-left: 3px solid #002f6c;
+            padding-left: 17px;
+        }
+
+        .announcement-item:first-child {
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .announcement-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .announcement-header {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
+
+        .announcement-badge {
+            display: inline-block;
+            background: #002f6c;
+            color: #fff;
+            padding: 0.5px 3px;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+        }
+
+        .announcement-badge.urgent {
+            background: #dc3545;
+        }
+
+        .announcement-badge.important {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .announcement-item-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #002f6c;
+            line-height: 1.4;
+        }
+
+        .announcement-item-description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .announcement-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .announcement-date {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .announcement-category {
+            color: #888;
+        }
+
+        .meta-separator {
+            color: #ddd;
+        }
+
+        /* View All Link */
+        .view-all-link {
+            display: inline-block;
+            color: #002f6c;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 0.2px;
+            margin-bottom: 0.2px;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        .view-all-link::after {
+            content: ' →';
+            font-size: 18px;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #002f6c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .tab-btn {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .announcement-item {
+                padding: 15px;
+            }
+
+            .announcement-item:hover {
+                padding-left: 12px;
+            }
+
+            .announcement-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .meta-separator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notice Bar -->
+    <div class="notice-bar">
+        Stay updated with the latest announcements from University of Hyderabad
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-top">
+            <div class="header-container">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img src="abc.jpg" alt="Pixel digital Library">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="collection.html">All Collection</a></li>
+                    <li><a href="material.html">Course Material</a></li>
+                    <li><a href="sources.html">Online Sources</a></li>
+                    <li><a href="announcement.html">Announcements</a></li>
+                    <li><a href="connect.html">Connect</a></li>
+                </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSezHOWeQI3dOH5tdiV-ZBcJyyV2ihQcCEa6HaEtC06kGVpA_Q/viewform?usp=sharing&ouid=110087299166035675268" class="contribute-btn" target="_blank">+Contribute Materials</a>
+                <a href="connect.html#faqs" style="color: #002f6c; font-size: 13px; text-decoration: underline;">FAQs</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Pixel digital Library</a> &gt; 
+        <a href="collection.html">Collection Items</a> &gt; 
+        Announcements
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="showTab('about')">University Announcements</button>
+            <button class="tab-btn" onclick="showTab('items')">All Announcements</button>
+        </div>
+
+        <!-- About Tab -->
+        <div id="aboutTab" class="tab-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">University Announcements</h1>
+                <p class="page-description">
+                    This collection contains important announcements and updates from various departments and administrative bodies of the University of Hyderabad. Stay informed about academic schedules, administrative notices, events, and other important information.
+                </p>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading announcements....</p>
+            </div>
+
+            <!-- Content Container -->
+            <div id="contentContainer" style="display: none;">
+                <!-- Student Affairs Section -->
+                <div class="announcement-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Updates From Pixel digital library</h2>
+                        <p class="section-subtitle">Updates and notices from the Student Affairs office</p>
+                    </div>
+                    <div class="announcements-list" id="uohdlList"></div>
+                    <a href="#" class="view-all-link">View all UOHDL's announcements</a>
+                </div>
+
+                <!-- University Administration Section -->
+                <div class="announcement-section">
+                    <div class="section-header">
+                        <h2 class="section-title">University Administration</h2>
+                        <p class="section-subtitle">Official notices and updates from the administration</p>
+                    </div>
+                    <div class="announcements-list" id="adminList"></div>
+                    <a href="#" class="view-all-link">View all Administration announcements</a>
+                </div>
+
+                <!-- Academic Departments Section -->
+                <div class="announcement-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Informal Updates</h2>
+                        <p class="section-subtitle">Announcements from various Sections</p>
+                    </div>
+                    <div class="announcements-list" id="informalList"></div>
+                    <a href="#" class="view-all-link">View all Informal Announcements</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collection Items Tab -->
+        <div id="itemsTab" class="tab-content" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">All Announcements</h1>
+                <p class="page-description">Browse all announcements from the university</p>
+            </div>
+            <div class="announcements-list" id="allItemsList"></div>
+        </div>
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL - UPDATE THIS WITH YOUR ACTUAL SCRIPT URL
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyL8qoYLNgphlPbzxo8OqKquLd_W1GY4rGznorjGq_T4zatlIWxGaRyIkh7zOmx2jOb/exec';
+
+        let allAnnouncements = [];
+
+        // Fetch data from Google Apps Script
+        async function fetchData() {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL);
+                const data = await response.json();
+                
+                if (data && Array.isArray(data)) {
+                    allAnnouncements = data;
+                    
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('contentContainer').style.display = 'block';
+                    renderAnnouncements();
+                } else {
+                    throw new Error('Invalid data format received');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('loading').innerHTML = `
+                    <p style="color: red;">Error loading announcements from Google Sheets</p>
+                    <p style="font-size: 13px; margin-top: 10px;">Error: ${error.message}</p>
+                    <button onclick="loadSampleData()" style="margin-top: 20px; padding: 10px 20px; cursor: pointer; font-family: Arial; background: #002f6c; color: #fff; border: none; border-radius: 4px;">Load Sample Data Instead</button>
+                `;
+            }
+        }
+
+        // Load sample data for testing
+        function loadSampleData() {
+            allAnnouncements = [
+                {
+                    title: 'Mid-Semester Examination Schedule Released',
+                    category: 'Student Affairs',
+                    description: 'The mid-semester examination schedule for all programs has been released. Students are advised to check their respective department notice boards.',
+                    date: '2026-01-05',
+                    priority: 'High',
+                    link: '#'
+                },
+                {
+                    title: 'Fee Payment Deadline Extended',
+                    category: 'Student Affairs',
+                    description: 'The deadline for semester fee payment has been extended to January 15, 2026. Students can pay through the online portal without late fees.',
+                    date: '2026-01-04',
+                    priority: 'Important',
+                    link: '#'
+                },
+                {
+                    title: 'Hostel Room Allocation Notice',
+                    category: 'Student Affairs',
+                    description: 'Room allocation for newly admitted students will commence from January 8, 2026. Please report to the hostel office with required documents.',
+                    date: '2026-01-03',
+                    priority: 'Normal',
+                    link: '#'
+                },
+                {
+                    title: 'Academic Calendar 2025-26 Released',
+                    category: 'University Administration',
+                    description: 'The academic calendar for the year 2025-26 has been officially released. It includes all important dates for examinations, holidays, and events.',
+                    date: '2026-01-05',
+                    priority: 'Important',
+                    link: '#'
+                },
+                {
+                    title: 'New Library Hours Announced',
+                    category: 'University Administration',
+                    description: 'The Central Library will operate with extended hours from 7 AM to 11 PM during the examination period to facilitate students.',
+                    date: '2026-01-02',
+                    priority: 'Normal',
+                    link: '#'
+                },
+                {
+                    title: 'Campus Infrastructure Upgrades',
+                    category: 'University Administration',
+                    description: 'The university is undertaking major infrastructure upgrades including renovation of lecture halls and installation of smart classroom technology.',
+                    date: '2026-01-01',
+                    priority: 'Normal',
+                    link: '#'
+                },
+                {
+                    title: 'Workshop on Research Methodology',
+                    category: 'Academic Departments',
+                    description: 'A three-day workshop on Advanced Research Methodology will be conducted from January 15-17, 2026. Registration is open for PhD scholars.',
+                    date: '2026-01-04',
+                    priority: 'Normal',
+                    link: '#'
+                },
+                {
+                    title: 'Guest Lecture on Artificial Intelligence',
+                    category: 'Academic Departments',
+                    description: 'Dr. Rajesh Kumar from IIT Delhi will deliver a guest lecture on "Future of AI and Machine Learning" on January 10, 2026.',
+                    date: '2026-01-03',
+                    priority: 'Normal',
+                    link: '#'
+                },
+                {
+                    title: 'Call for Papers: Annual Conference',
+                    category: 'Academic Departments',
+                    description: 'The Department of Computer Science invites papers for the Annual National Conference on Computing and Information Technology.',
+                    date: '2025-12-30',
+                    priority: 'Normal',
+                    link: '#'
+                }
+            ];
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('contentContainer').style.display = 'block';
+            renderAnnouncements();
+        }
+
+        // Render announcements in respective sections
+        function renderAnnouncements() {
+            const studentAffairs = allAnnouncements.filter(a => a.category === 'UOHDL').slice(0, 6);
+            const admin = allAnnouncements.filter(a => a.category === 'University Administration').slice(0, 6);
+            const academic = allAnnouncements.filter(a => a.category === 'Informal Updates').slice(0, 6);
+
+            document.getElementById('uohdlList').innerHTML = renderList(studentAffairs);
+            document.getElementById('adminList').innerHTML = renderList(admin);
+            document.getElementById('informalList').innerHTML = renderList(academic);
+            document.getElementById('allItemsList').innerHTML = renderList(allAnnouncements);
+        }
+
+        // Render list of announcement items
+        function renderList(items) {
+            if (items.length === 0) {
+                return '<p style="color: #666; padding: 20px;">No announcements available at this time.</p>';
+            }
+
+            return items.map(item => {
+                const badgeClass = item.priority === 'High' ? 'urgent' : (item.priority === 'Important' ? 'important' : '');
+                const formattedDate = formatDate(item.date);
+
+                return `
+                    <div class="announcement-item" onclick="window.open('${item.link || '#'}', '_blank')">
+                        <div class="announcement-main">
+                            <div class="announcement-header">
+                                ${item.priority && item.priority !== 'Normal' ? `<span class="announcement-badge ${badgeClass}">${item.priority}</span>` : ''}
+                                <div class="announcement-item-title">${item.title}</div>
+                            </div>
+                            <div class="announcement-item-description">${item.description}</div>
+                            <div class="announcement-meta">
+                                <span class="announcement-date">${formattedDate}</span>
+                                <span class="meta-separator">•</span>
+                                <span class="announcement-category">${item.category || 'General'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return 'Date not specified';
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Tab switching
+        function showTab(tabName) {
+            const aboutTab = document.getElementById('aboutTab');
+            const itemsTab = document.getElementById('itemsTab');
+            const tabButtons = document.querySelectorAll('.tab-btn');
+
+            if (tabName === 'about') {
+                aboutTab.style.display = 'block';
+                itemsTab.style.display = 'none';
+                tabButtons[0].classList.add('active');
+                tabButtons[1].classList.remove('active');
+            } else {
+                aboutTab.style.display = 'none';
+                itemsTab.style.display = 'block';
+                tabButtons[0].classList.remove('active');
+                tabButtons[1].classList.add('active');
+            }
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            fetchData();
+        };
+    </script>
+</body>
+</html>
